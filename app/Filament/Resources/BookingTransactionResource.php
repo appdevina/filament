@@ -13,6 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Wizard;
+use Filament\Tables\Columns\TextColumn;
+
 class BookingTransactionResource extends Resource
 {
     protected static ?string $model = BookingTransaction::class;
@@ -24,7 +31,7 @@ class BookingTransactionResource extends Resource
         return $form
             ->schema([
                 Wizard::make([
-                    Step::make('Customer Information')
+                    Wizard\Step::make('Customer Information')
                         ->schema([
                             TextInput::make('customer_name')
                                 ->required()
@@ -33,8 +40,8 @@ class BookingTransactionResource extends Resource
                                 ->required()
                                 ->label('Customer Phone'),
                         ]),
-    
-                    Step::make('Service Selection')
+
+                    Wizard\Step::make('Service Selection')
                         ->schema([
                             Select::make('home_service_id')
                                 ->relationship('homeService', 'service_name')
@@ -44,8 +51,8 @@ class BookingTransactionResource extends Resource
                                 ->required()
                                 ->label('Booking Date'),
                         ]),
-    
-                    Step::make('Booking Status')
+
+                    Wizard\Step::make('Booking Status')
                         ->schema([
                             Select::make('status')
                                 ->options([
@@ -65,7 +72,9 @@ class BookingTransactionResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('customer_name')->label('Customer Name'),
+                TextColumn::make('homeService.service_name')->label('Home Service'),
+                TextColumn::make('booking_date')->dateTime(),
             ])
             ->filters([
                 //
