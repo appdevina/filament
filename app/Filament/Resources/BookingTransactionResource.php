@@ -26,6 +26,8 @@ class BookingTransactionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Home Service';
+
     public static function form(Form $form): Form
     {
         return $form

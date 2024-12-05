@@ -23,6 +23,8 @@ class HomeServiceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    protected static ?string $navigationGroup = 'Home Service';
+
     public static function form(Form $form): Form
     {
         return $form
